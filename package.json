@@ -21,7 +21,7 @@
     "underscore-plus": "^1.0.0"
   },
   "devDependencies": {
-    "soldat-mocha-test-runner": "^0.3.0",
+    "soldat-mocha-test-runner": "^1.0.0",
     "coffeelint": "^1.9.7"
   },
   "configSchema": {
