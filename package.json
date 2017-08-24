@@ -4,9 +4,7 @@
   "main": "./lib/command-palette-package",
   "description": "Find and run available commands using `cmd-shift-p` (macOS) or `ctrl-shift-p` (Linux/Windows).",
   "activationCommands": {
-    "soldat-workspace": [
-      "command-palette:toggle"
-    ]
+    "soldat-workspace": ["command-palette:toggle"]
   },
   "repository": "https://github.com/DavidLemarier/command-palette",
   "license": "MIT",
@@ -15,7 +13,7 @@
   },
   "soldatTestRunner": "soldat-mocha-test-runner",
   "dependencies": {
-    "soldat-select-list": "^0.1.0",
+    "atom-select-list": "^0.1.0",
     "fuzzaldrin": "^2.1.0",
     "fuzzaldrin-plus": "^0.4.1",
     "underscore-plus": "^1.0.0"
