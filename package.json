@@ -1,10 +1,12 @@
 {
   "name": "command-palette",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./lib/command-palette-package",
   "description": "Find and run available commands using `cmd-shift-p` (macOS) or `ctrl-shift-p` (Linux/Windows).",
   "activationCommands": {
-    "soldat-workspace": ["command-palette:toggle"]
+    "soldat-workspace": [
+      "command-palette:toggle"
+    ]
   },
   "repository": "https://github.com/DavidLemarier/command-palette",
   "license": "MIT",
