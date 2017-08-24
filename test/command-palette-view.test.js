@@ -8,7 +8,7 @@ describe('CommandPaletteView', () => {
   let workspaceElement
 
   beforeEach(() => {
-    workspaceElement = atom.views.getView(atom.workspace)
+    workspaceElement = soldat.views.getView(soldat.workspace)
     document.body.appendChild(workspaceElement)
   })
 
@@ -19,12 +19,12 @@ describe('CommandPaletteView', () => {
   describe('toggle', () => {
     describe('when an element is focused', () => {
       it('shows a list of all valid command descriptions, names, and keybindings for the previously focused element', async () => {
-        const editor = await atom.workspace.open()
+        const editor = await soldat.workspace.open()
         editor.element.focus()
         const commandPalette = new CommandPaletteView()
         await commandPalette.toggle()
-        const keyBindings = atom.keymaps.findKeyBindings({target: editor.element})
-        for (const {name, displayName} of atom.commands.findCommands({target: editor.element})) {
+        const keyBindings = soldat.keymaps.findKeyBindings({target: editor.element})
+        for (const {name, displayName} of soldat.commands.findCommands({target: editor.element})) {
           const eventLi = workspaceElement.querySelector(`[data-event-name='${name}']`)
           assert.equal(eventLi.querySelector('span').textContent, displayName)
           assert.equal(eventLi.querySelector('span').title, name)
@@ -42,8 +42,8 @@ describe('CommandPaletteView', () => {
         document.activeElement.blur()
         const commandPalette = new CommandPaletteView()
         await commandPalette.toggle()
-        const keyBindings = atom.keymaps.findKeyBindings({target: workspaceElement})
-        for (const {name, displayName} of atom.commands.findCommands({target: workspaceElement})) {
+        const keyBindings = soldat.keymaps.findKeyBindings({target: workspaceElement})
+        for (const {name, displayName} of soldat.commands.findCommands({target: workspaceElement})) {
           const eventLi = workspaceElement.querySelector(`[data-event-name='${name}']`)
           assert.equal(eventLi.querySelector('span').textContent, displayName)
           assert.equal(eventLi.querySelector('span').title, name)
@@ -61,8 +61,8 @@ describe('CommandPaletteView', () => {
         document.body.focus()
         const commandPalette = new CommandPaletteView()
         await commandPalette.toggle()
-        const keyBindings = atom.keymaps.findKeyBindings({target: workspaceElement})
-        for (const {name, displayName} of atom.commands.findCommands({target: workspaceElement})) {
+        const keyBindings = soldat.keymaps.findKeyBindings({target: workspaceElement})
+        for (const {name, displayName} of soldat.commands.findCommands({target: workspaceElement})) {
           const eventLi = workspaceElement.querySelector(`[data-event-name='${name}']`)
           assert.equal(eventLi.querySelector('span').textContent, displayName)
           assert.equal(eventLi.querySelector('span').title, name)
@@ -105,28 +105,28 @@ describe('CommandPaletteView', () => {
     })
 
     it('hides the command palette and focuses the previously active element if the palette was already open', async () => {
-      const editor = await atom.workspace.open()
+      const editor = await soldat.workspace.open()
       const commandPalette = new CommandPaletteView()
-      assert.equal(document.activeElement.closest('atom-text-editor'), editor.element)
+      assert.equal(document.activeElement.closest('soldat-text-editor'), editor.element)
       assert.equal(commandPalette.selectListView.element.offsetHeight, 0)
       await commandPalette.toggle()
-      assert.notEqual(document.activeElement.closest('atom-text-editor'), editor.element)
+      assert.notEqual(document.activeElement.closest('soldat-text-editor'), editor.element)
       assert.notEqual(commandPalette.selectListView.element.offsetHeight, 0)
       await commandPalette.toggle()
-      assert.equal(document.activeElement.closest('atom-text-editor'), editor.element)
+      assert.equal(document.activeElement.closest('soldat-text-editor'), editor.element)
       assert.equal(commandPalette.selectListView.element.offsetHeight, 0)
       await commandPalette.toggle()
-      assert.notEqual(document.activeElement.closest('atom-text-editor'), editor.element)
+      assert.notEqual(document.activeElement.closest('soldat-text-editor'), editor.element)
       assert.notEqual(commandPalette.selectListView.element.offsetHeight, 0)
       commandPalette.selectListView.cancelSelection()
-      assert.equal(document.activeElement.closest('atom-text-editor'), editor.element)
+      assert.equal(document.activeElement.closest('soldat-text-editor'), editor.element)
       assert.equal(commandPalette.selectListView.element.offsetHeight, 0)
     })
   })
 
   describe('when selecting a command', () => {
     it('hides the palette, then focuses the previously focused element and dispatches the selected command on it', async () => {
-      const editor = await atom.workspace.open()
+      const editor = await soldat.workspace.open()
       editor.element.focus()
       const commandPalette = new CommandPaletteView()
       await commandPalette.toggle()
@@ -134,14 +134,14 @@ describe('CommandPaletteView', () => {
       await commandPalette.selectListView.selectNext()
       await commandPalette.selectListView.selectNext()
       let hasDispatchedCommand = false
-      atom.commands.add(
+      soldat.commands.add(
         editor.element,
         commandPalette.selectListView.getSelectedItem().name,
         () => { hasDispatchedCommand = true }
       )
       commandPalette.selectListView.confirmSelection()
       assert(hasDispatchedCommand)
-      assert.equal(document.activeElement.closest('atom-text-editor'), editor.element)
+      assert.equal(document.activeElement.closest('soldat-text-editor'), editor.element)
       assert.equal(commandPalette.selectListView.element.offsetHeight, 0)
     })
   })

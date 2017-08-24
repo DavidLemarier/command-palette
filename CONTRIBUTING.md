@@ -1,1 +1,1 @@
-See the [Atom contributing guide](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)
+See the [Soldat contributing guide](https://github.com/soldat/soldat/blob/master/CONTRIBUTING.md)
